@@ -9,6 +9,10 @@ import scrapy
 
 
 class IpspiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    name = scrapy.Field()
+    created = scrapy.Field()
+    updated = scrapy.Field()
+    downloadLink = scrapy.Field()
+    category = scrapy.Field()
+    language = scrapy.Field()
+    license = scrapy.Field()
