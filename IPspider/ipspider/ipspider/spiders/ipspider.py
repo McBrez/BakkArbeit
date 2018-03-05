@@ -12,14 +12,22 @@ class HDL_IP(scrapy.Item):
 
 class IPspider(scrapy.Spider):
     """The class, which is called by the scrapy framework. """
-    name = 'ipspider'											# the name of the spider
-   # start_urls = ['https://opencores.org/projects?lang=0&stage=5&license=0&wishbone_version=0']		# the url where the scraping starts
+    name = 'ipspider'   # the name of the spider
+
 
     def start_requests(self):
-        return [scrapy.FormRequest("https://opencores.org/projects?lang=0&stage=5&license=0&wishbone_version=0",
-                                   formdata={'user': 'davFreismuth', 'pass': 'Qlghkeul'},
-                                   callback=self.parse)]
+        return [scrapy.Request( url = "https://opencores.org",
+                                               callback=self.login)]
 
+    def login(self, response):
+        return scrapy.FormRequest.from_response(     response, 
+                                                                                    formdata={'user' : 'davFreismuth',  'pass' : 'Qlghkeul'}, 
+                                                                                    callback=self.redirect )
+
+    def redirect(self,  response):
+        return scrapy.Request( url = "https://opencores.org/projects?lang=0&stage=5&license=0&wishbone_version=0", 
+                                                callback=self.parse )
+                                                
     def parse(self, response):
         """Default callback for scrapy. Starts at start_url, fetches the url of the different project pages, and calls parse_metadata for each project page"""
         for href in response.css('td.project a::attr(href)'):

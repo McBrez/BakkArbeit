@@ -70,6 +70,8 @@ ITEM_PIPELINES = {
 }
 
 FILES_STORE = '/home/df/Schreibtisch/workspace/workingDirectory/BakkArbeit/IPspider/ipspider/downloads'
+COOKIES_ENABLED = True
+COOKIES_DEBUG = True
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
